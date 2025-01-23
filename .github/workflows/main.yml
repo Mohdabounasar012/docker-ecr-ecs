@@ -17,12 +17,12 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-1  # Corrected input name to 'aws-region'
+          aws-region: ap-northeast-1  # Correct input name for region
 
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          registry: 688567291323.dkr.ecr.ap-northeast-1.amazonaws.com
+          registry: 688567291323.dkr.ecr.ap-northeast-1.amazonaws.com  # ECR registry to log in to
 
       - name: Build php Docker image
         run: |
@@ -38,7 +38,5 @@ jobs:
         with:
           cluster: php-cluster
           service: php-service
-          task-definition: php-task.json
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-1  # Corrected input name to 'aws-region'
+          task-definition: php-task.json  # Ensure the file path is correct
+          wait-for-service-stability: true  # Optional, but waits for ECS service stability before completing the workflow
