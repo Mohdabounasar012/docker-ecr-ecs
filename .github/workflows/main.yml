@@ -38,5 +38,5 @@ jobs:
         with:
           cluster: php-cluster
           service: php-service
-          task-definition: php-task.json  # Ensure the file path is correct
+          #task-definition: php-task.json  # Ensure the file path is correct
           wait-for-service-stability: true  # Optional, but waits for ECS service stability before completing the workflow
