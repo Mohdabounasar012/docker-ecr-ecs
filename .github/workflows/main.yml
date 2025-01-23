@@ -14,6 +14,8 @@ jobs:
 
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          region: ap-northeast-1  # Specify AWS region here
 
       - name: Build php Docker image
         run: |
@@ -32,4 +34,4 @@ jobs:
           task-definition: php-task.json
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          region: ap-northeast-1
+          region: ap-northeast-1  # Specify AWS region here
