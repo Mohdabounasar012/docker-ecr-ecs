@@ -1,0 +1,38 @@
+name: php CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build php Docker image
+        run: |
+          docker build -t php-ecr-server .
+          docker tag php-ecr-server:latest 688567291323.dkr.ecr.ap-northeast-1.amazonaws.com/php-ecr-server:latest
+
+      - name: Push php Docker image to ECR
+        run: |
+          docker push 688567291323.dkr.ecr.ap-northeast-1.amazonaws.com/php-ecr-server:latest
+
+      - name: Deploy to ECS (php Service)
+        uses: jakejarvis/ecs-deploy-action@v1
+        with:
+          cluster: php-cluster
+          service: php-service
+          task-definition: php-task.json
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ap-northeast-1
