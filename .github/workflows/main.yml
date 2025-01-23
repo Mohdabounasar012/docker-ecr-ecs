@@ -33,10 +33,10 @@ jobs:
         run: |
           docker push 688567291323.dkr.ecr.ap-northeast-1.amazonaws.com/php-ecr-server:latest
 
-      - name: Deploy to ECS (php Service)
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          cluster: php-cluster
-          service: php-service
+      #- name: Deploy to ECS (php Service)
+        #uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        #with:
+          #cluster: php-cluster
+          #service: php-service
           #task-definition: php-task.json  # Ensure the file path is correct
-          wait-for-service-stability: true  # Optional, but waits for ECS service stability before completing the workflow
+          #wait-for-service-stability: true  # Optional, but waits for ECS service stability before completing the workflow
