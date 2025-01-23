@@ -20,7 +20,7 @@ services:
       MYSQL_USER: abou-user
       MYSQL_PASSWORD: Abou@123456
     ports:
-      - "3304:3306"
+      - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
 
